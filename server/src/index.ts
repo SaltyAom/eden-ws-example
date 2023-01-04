@@ -8,12 +8,12 @@ const app = new Elysia()
     .use(websocket())
     .use(
         staticPlugin({
-            path: 'assets',
-            prefix: '/assets'
+            path: 'public',
+            prefix: '/public'
         })
     )
     .get('/', ({ set }) => {
-        set.redirect = '/assets/index.html'
+        set.redirect = '/public/index.html'
     })
     .ws('/chat', {
         open(ws) {

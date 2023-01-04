@@ -24,8 +24,6 @@ COPY client .
 RUN pnpm i
 RUN pnpm build
 
-RUN mv dist/assets/* dist
-
 # ? -------------------------
 FROM gcr.io/distroless/base
 
@@ -35,7 +33,7 @@ COPY --from=bun /root/.bun/bin/bun bun
 COPY --from=bun /app/node_modules node_modules
 COPY --from=bun /app/node_modules node_modules
 
-COPY --from=builder /app/dist assets
+COPY --from=builder /app/dist public
 
 COPY server/src src
 COPY server/tsconfig.json .
