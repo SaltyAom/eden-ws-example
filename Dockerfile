@@ -1,4 +1,4 @@
-FROM debian:11.6-slim as bun
+FROM debian:11.6-slim AS server
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY server/bun.lockb .
 RUN /root/.bun/bin/bun install --production
 
 # ? -------------------------
-FROM node:19.3.0 as builder
+FROM node:19.3.0 AS client
 
 WORKDIR /app
 
@@ -29,11 +29,11 @@ FROM gcr.io/distroless/base
 
 WORKDIR /app
 
-COPY --from=bun /root/.bun/bin/bun bun
-COPY --from=bun /app/node_modules node_modules
-COPY --from=bun /app/node_modules node_modules
+COPY --from=server /root/.bun/bin/bun bun
+COPY --from=server /app/node_modules node_modules
+COPY --from=server /app/node_modules node_modules
 
-COPY --from=builder /app/dist public
+COPY --from=client /app/dist public
 
 COPY server/src src
 COPY server/tsconfig.json .
