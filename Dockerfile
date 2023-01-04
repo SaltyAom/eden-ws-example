@@ -33,6 +33,9 @@ COPY --from=server /root/.bun/bin/bun bun
 COPY --from=server /app/node_modules node_modules
 COPY --from=server /app/node_modules node_modules
 
+# ? https://github.com/moby/moby/issues/37965
+RUN true
+
 COPY --from=client /app/dist public
 
 COPY server/src src
