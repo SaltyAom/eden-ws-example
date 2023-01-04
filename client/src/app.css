@@ -55,7 +55,7 @@ button:focus-visible {
 }
 
 fieldset {
-  border: 1px solid #1a1a1a;
+  border: 1px solid #f1f1f1;
 }
 
 p {
@@ -70,11 +70,23 @@ p {
   max-height: calc(100vh - 74px - 4em - 1em);
   overflow-y: auto;
   margin-bottom: 1em;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #f1f1f1;
 }
 
 #message-box {
   width: 36ch;
+}
+
+@media (max-width: 660px) {
+  #sign-in {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+  }
+
+  label {
+    font-size: .875em;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -85,5 +97,9 @@ p {
 
   button {
     background-color: #f1f1f1;
+  }
+
+  #chat, fieldset {
+    border: 1px solid #1a1a1a;
   }
 }

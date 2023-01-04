@@ -36,16 +36,20 @@
   }
 
   const formatTime = (time: number) => {
-    const [hour, minute, secondAndUnit] = new Date(time).toLocaleTimeString().split(":")
-    const [second, unit] = secondAndUnit.split(" ")
+    const date = new Date(time)
+    let hour: string | number = date.getHours()
+    let minute: string | number = date.getMinutes()
 
-    return `${hour}:${minute} ${unit}`
+    if(hour < 10) hour = "0" + hour
+    if(minute < 10) minute = "0" + minute
+
+    return `${hour}:${minute}`
   }
 </script>
 
 {#if !chat}
   <form on:submit|preventDefault={enterRoom}>
-    <fieldset>
+    <fieldset id="sign-in">
       <legend>Elysia Chatroom</legend>
       
       <label for="name">Name</label>
