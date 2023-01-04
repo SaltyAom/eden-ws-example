@@ -1,0 +1,11 @@
+{
+  "name": "eden-ws",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun index.ts"
+  },
+  "devDependencies": {
+    "bun-types": "^0.4.0"
+  }
+}

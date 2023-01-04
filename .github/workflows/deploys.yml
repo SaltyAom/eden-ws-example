@@ -1,0 +1,43 @@
+name: deploys
+
+on:
+  push:
+    branches: [ main, cleveland ]
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: eden-ws
+      IMAGE_NAME: ghcr.io/saltyaom/eden-ws
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: saltyaom
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Docker image
+      run: docker build -t $APP_NAME .
+
+    - name: Tag Docker image
+      run: docker tag $APP_NAME $IMAGE_NAME
+
+    - name: Push Docker image
+      run: docker push $IMAGE_NAME
+
+    - uses: deploys-app/deploys-action@v1
+      with:
+        project: saltyaom
+        location: gke.cluster-rcf2
+        name: eden-ws
+        image: ghcr.io/saltyaom/eden-ws
+        minReplicas: 2
+        maxReplicas: 20
+      env:
+        DEPLOYS_AUTH_USER: ${{ secrets.DEPLOYS_AUTH_USER }}
+        DEPLOYS_AUTH_PASS: ${{ secrets.DEPLOYS_AUTH_PASS }}
