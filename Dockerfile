@@ -22,6 +22,8 @@ RUN curl https://bun.sh/install | bash
 
 COPY server/package.json .
 COPY server/bun.lockb .
+COPY server/src src
+COPY server/tsconfig.json .
 
 RUN /root/.bun/bin/bun install --production
 
@@ -34,11 +36,9 @@ WORKDIR /app
 
 COPY --from=server /root/.bun/bin/bun bun
 COPY --from=server /app/node_modules node_modules
-COPY --from=server /app/node_modules node_modules
 COPY --from=server /app/public public
-
-COPY server/src src
-COPY server/tsconfig.json .
+COPY --from=server /app/src src
+COPY --from=server /app/tsconfig.json .
 
 ENV ENV production
 CMD ["./bun", "src/index.ts"]
