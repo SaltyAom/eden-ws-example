@@ -1,3 +1,16 @@
+# ? -------------------------
+FROM node:19.3.0 AS client
+
+WORKDIR /app
+
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+
+COPY client .
+
+RUN pnpm i
+RUN pnpm build
+
+# ? -------------------------
 FROM debian:11.6-slim AS server
 
 WORKDIR /app
@@ -12,17 +25,7 @@ COPY server/bun.lockb .
 
 RUN /root/.bun/bin/bun install --production
 
-# ? -------------------------
-FROM node:19.3.0 AS client
-
-WORKDIR /app
-
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
-COPY client .
-
-RUN pnpm i
-RUN pnpm build
+COPY --from=client /app/dist public
 
 # ? -------------------------
 FROM gcr.io/distroless/base
@@ -32,11 +35,7 @@ WORKDIR /app
 COPY --from=server /root/.bun/bin/bun bun
 COPY --from=server /app/node_modules node_modules
 COPY --from=server /app/node_modules node_modules
-
-# ? https://github.com/moby/moby/issues/37965
-RUN true
-
-COPY --from=client /app/dist public
+COPY --from=server /app/public public
 
 COPY server/src src
 COPY server/tsconfig.json .
