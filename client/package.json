@@ -20,6 +20,6 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "@elysiajs/eden": "^0.2.0-rc.1"
+    "@elysiajs/eden": "0.2.0-rc.2"
   }
 }
