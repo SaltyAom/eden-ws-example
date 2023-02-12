@@ -18,6 +18,7 @@
 
   const enterRoom = () => {
     chat = api.chat.subscribe({
+      // Add query parameters
       "$query": {
         name,
         room

@@ -12,7 +12,6 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
     "@tsconfig/svelte": "^3.0.0",
-    "elysia": "^0.1.2",
     "svelte": "^3.54.0",
     "svelte-check": "^2.10.0",
     "tslib": "^2.4.1",
@@ -20,6 +19,7 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "@elysiajs/eden": "0.2.0-rc.2"
+    "@elysiajs/eden": "0.2.1",
+    "elysia": "^0.2.5"
   }
 }

@@ -6,6 +6,6 @@
     "dev": "bun index.ts"
   },
   "devDependencies": {
-    "bun-types": "^0.4.0"
+    "bun-types": "^0.5.0"
   }
 }
