@@ -6,13 +6,12 @@
     "dev": "bun run --hot src/index.ts"
   },
   "dependencies": {
-    "@elysiajs/cors": "^0.1.0",
-    "@elysiajs/static": "^0.2.0",
-    "@elysiajs/websocket": "^0.2.8",
-    "elysia": "0.2.5"
+    "@elysiajs/cors": "^0.3.0",
+    "@elysiajs/static": "^0.3.2",
+    "elysia": "0.4.3"
   },
   "devDependencies": {
-    "bun-types": "^0.4.0"
+    "bun-types": "^0.5.8"
   },
   "module": "src/index.js"
 }

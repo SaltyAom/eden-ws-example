@@ -1,14 +1,13 @@
-import { Elysia, t } from 'elysia'
-import { websocket } from '@elysiajs/websocket'
+import { Elysia, SCHEMA, t, ws } from 'elysia'
 import { cors } from '@elysiajs/cors'
 import { staticPlugin } from '@elysiajs/static'
 
 const app = new Elysia()
     .use(cors())
-    .use(websocket())
+    .use(ws())
     .use(
         staticPlugin({
-            path: 'public',
+            assets: 'public',
             prefix: '/public'
         })
     )
@@ -59,6 +58,7 @@ const app = new Elysia()
     .listen(8080)
 
 export type App = typeof app
+type Typed = App['meta'][typeof SCHEMA]
 
 console.log(
     `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
